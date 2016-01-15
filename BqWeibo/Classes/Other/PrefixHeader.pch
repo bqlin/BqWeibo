@@ -1,0 +1,25 @@
+//
+//  PrefixHeader.pch
+//  BqWeibo
+//
+//  Created by LinBq on 15/12/31.
+//  Copyright © 2015年 Bq. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+// 仅供调试用的 Log
+#ifdef DEBUG    // 开发阶段
+#define BqLog(...) NSLog(__VA_ARGS__)
+#else   // 发布阶段
+#define BqLog(...)
+#endif
+
+// 用于测试的控件
+#import "BqSearchBar.h"
+
+#endif /* PrefixHeader_pch */
