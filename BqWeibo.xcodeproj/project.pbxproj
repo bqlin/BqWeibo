@@ -47,6 +47,7 @@
 		E592C3AA1C48BBA70065A318 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E592C37F1C48BBA70065A318 /* MBProgressHUD.m */; };
 		E592C3AB1C48BBA70065A318 /* BqProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E592C3841C48BBA70065A318 /* BqProfileTableViewController.m */; };
 		E592C3AD1C48BBF20065A318 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = E592C3AC1C48BBF20065A318 /* README.md */; };
+		E592C3AF1C48D7A70065A318 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = E592C3AE1C48D7A70065A318 /* Foundation+Log.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,7 @@
 		E592C3831C48BBA70065A318 /* BqProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BqProfileTableViewController.h; sourceTree = "<group>"; };
 		E592C3841C48BBA70065A318 /* BqProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BqProfileTableViewController.m; sourceTree = "<group>"; };
 		E592C3AC1C48BBF20065A318 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E592C3AE1C48D7A70065A318 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,14 +219,14 @@
 		E592C31F1C48BBA70065A318 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E592C3201C48BBA70065A318 /* Discover */,
 				E592C3261C48BBA70065A318 /* Home */,
-				E592C32E1C48BBA70065A318 /* Main */,
 				E592C3451C48BBA70065A318 /* Message */,
+				E592C3201C48BBA70065A318 /* Discover */,
+				E592C3811C48BBA70065A318 /* Profile */,
+				E592C32E1C48BBA70065A318 /* Main */,
 				E592C34B1C48BBA70065A318 /* NewFeature */,
 				E592C34F1C48BBA70065A318 /* OAuth */,
 				E592C3591C48BBA70065A318 /* Other */,
-				E592C3811C48BBA70065A318 /* Profile */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -464,6 +466,7 @@
 				E592C3621C48BBA70065A318 /* UIView+BqStyle.m */,
 				E592C3631C48BBA70065A318 /* UIWindow+Extension.h */,
 				E592C3641C48BBA70065A318 /* UIWindow+Extension.m */,
+				E592C3AE1C48D7A70065A318 /* Foundation+Log.m */,
 			);
 			path = Categorys;
 			sourceTree = "<group>";
@@ -673,6 +676,7 @@
 				E592C3A11C48BBA70065A318 /* AFHTTPSessionManager.m in Sources */,
 				E592C3941C48BBA70065A318 /* BqTabBar.m in Sources */,
 				E592C3A21C48BBA70065A318 /* AFNetworkReachabilityManager.m in Sources */,
+				E592C3AF1C48D7A70065A318 /* Foundation+Log.m in Sources */,
 				E592C38D1C48BBA70065A318 /* BqTabBarController.m in Sources */,
 				E592C3A01C48BBA70065A318 /* AFHTTPRequestOperationManager.m in Sources */,
 				E592C3A51C48BBA70065A318 /* AFURLRequestSerialization.m in Sources */,

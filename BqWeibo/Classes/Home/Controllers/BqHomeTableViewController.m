@@ -12,6 +12,9 @@
 // 导入 控制标题下拉菜单的控制器
 #import "BqTitleMenuViewController.h"
 
+#import "AFNetworking.h"
+#import "BqAccountTools.h"
+
 
 
 // 遵守下拉菜单的代理协议
@@ -26,49 +29,95 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    /// 设置导航栏标题
+    [self setupNav];
+    
+    /// 获取的用户信息（昵称）
+    [self setupUserInfo];
+    
+    
+    
+    BqLog(@"BqHomeTableViewController-viewDidLoad");
+}
+
+/// 获取的用户信息（昵称）
+-  (void)setupUserInfo{
+//    URL: https://api.weibo.com/2/users/show.json
+//    支持格式: JSON
+//    HTTP请求方式: GET
+//    请求参数：access_token、uid
+    
+    // 请求管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // 拼接请求参数
+    // 获得账号
+    BqAccount *account = [BqAccountTools account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+    params[@"uid"] = account.uid;
+    
+    // 发送请求
+    [manager GET:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        BqLog(@"request success - %@",responseObject);
+        // 获取昵称
+        NSString *userName = responseObject[@"name"];
+        // 如果昵称与沙盒中的不一样才修改标题
+        if ([userName isEqualToString:account.userName]) {
+            // 设置标题
+            UIButton *titleButton = (UIButton *)self.navigationItem.titleView;
+            [titleButton setTitle:userName forState:UIControlStateNormal];
+            [titleButton sizeToFit];
+            // 存入沙盒
+            account.userName = userName;
+            [BqAccountTools saveAccount:account];
+        }
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        BqLog(@"request fail - %@", error);
+    }];
+}
+
+
+
+/// 设置导航栏标题
+- (void)setupNav{
+    // 导航栏 左右按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView imageButton:@"navigationbar_friendsearch" withTarget:self action:nil]];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView imageButton:@"navigationbar_pop" withTarget:self action:nil]];
     
-    
-    
     // 标题按钮
-    
     UIButton *titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [titleBtn setTitle:@"首页" forState:UIControlStateNormal];
+    // 设置为导航栏标题视图
+    self.navigationItem.titleView = titleBtn;
+    // 设置按钮
+    NSString *userName = [BqAccountTools account].userName;
+//    [titleBtn setTitle:@"首页" forState:UIControlStateNormal];
+    [titleBtn setTitle:userName?userName:@"首页" forState:UIControlStateNormal];
     [titleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     titleBtn.titleLabel.font = [UIFont systemFontOfSize:17];
     //titleBtn.backgroundColor = [UIColor greenColor];
     [titleBtn setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
     [titleBtn setImage:[UIImage imageNamed:@"navigationbar_arrow_up"] forState:UIControlStateSelected];
     [titleBtn sizeToFit];
- 
     
     // 调整 titleBtn 子控件
-    BqLog(@"titleBtn.titleLabel: %f", titleBtn.titleLabel.width);
-    BqLog(@"titleBtn.imageView: %f", titleBtn.imageView.width);
-    BqLog(@"titleBtn.titleLabel: %f", titleBtn.titleLabel.width);
-    BqLog(@"titleBtn: %f", titleBtn.width);
+//    BqLog(@"titleBtn.titleLabel: %f", titleBtn.titleLabel.width);
+//    BqLog(@"titleBtn.imageView: %f", titleBtn.imageView.width);
+//    BqLog(@"titleBtn.titleLabel: %f", titleBtn.titleLabel.width);
+//    BqLog(@"titleBtn: %f", titleBtn.width);
+    CGFloat scaleFactor = [[UIScreen mainScreen] scale];
     titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0, titleBtn.titleLabel.width, 0, 0);
-    titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, - titleBtn.imageView.width * 2, 0, 0);
-//    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0);
-//    titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 40);
+    titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, - titleBtn.imageView.width * scaleFactor - 10, 0, 0);
+    //    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0);
+    //titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, titleBtn.imageView.width);
     // 绑定事件
     [titleBtn addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
     
     
-    self.navigationItem.titleView = titleBtn;
-    
-    BqLog(@"BqHomeTableViewController-viewDidLoad");
-    
-    
     
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 
 #pragma mark - 按钮点击事件
@@ -124,58 +173,9 @@
     return 0;
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
+#pragma mark - 系统方法
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

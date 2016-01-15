@@ -10,8 +10,7 @@
 
 
 #import <Foundation/Foundation.h>
-
-@class BqAccount;
+#import "BqAccount.h"
 
 @interface BqAccountTools : NSObject
 

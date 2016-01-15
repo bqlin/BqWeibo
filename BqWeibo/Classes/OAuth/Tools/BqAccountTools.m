@@ -10,13 +10,11 @@
 #define BqAccountPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"account.data"]
 
 #import "BqAccountTools.h"
-#import "BqAccount.h"
+
 
 @implementation BqAccountTools
 
 + (void)saveAccount:(BqAccount *)account{
-    // 获取账号存储的时间，约等于 accessToken 的产生时间
-    account.created_time = [NSDate date];
     // 将返回的账号数据以模型存入沙盒中
     [NSKeyedArchiver archiveRootObject:account toFile:BqAccountPath];
 }

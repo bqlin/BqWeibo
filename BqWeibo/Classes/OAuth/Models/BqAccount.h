@@ -21,8 +21,11 @@
 /// uid string  当前授权用户的UID。
 @property (nonatomic, copy) NSString *uid;
 
-/// accessToken 的创建时间
+/// #额外# accessToken 的创建时间
 @property (nonatomic, strong) NSDate *created_time;
+
+/// #额外# 用户昵称
+@property (nonatomic, copy) NSString *userName;
 
 /// 使用字典初始化
 - (instancetype)initWithDict:(NSDictionary *)dict;
