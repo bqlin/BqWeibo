@@ -15,6 +15,8 @@
 #import "AFNetworking.h"
 #import "BqAccountTools.h"
 
+#import "BqTitleButton.h"
+
 
 
 // 遵守下拉菜单的代理协议
@@ -72,8 +74,6 @@
             account.userName = userName;
             [BqAccountTools saveAccount:account];
         }
-        
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         BqLog(@"request fail - %@", error);
     }];
@@ -81,40 +81,50 @@
 
 
 
-/// 设置导航栏标题
+/// 设置导航栏按钮
 - (void)setupNav{
     // 导航栏 左右按钮
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView imageButton:@"navigationbar_friendsearch" withTarget:self action:nil]];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[UIView imageButton:@"navigationbar_pop" withTarget:self action:nil]];
     
-    // 标题按钮
-    UIButton *titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+   // 导航栏标题
+    UIButton *titleBtn = [BqTitleButton titleButton];
     // 设置为导航栏标题视图
     self.navigationItem.titleView = titleBtn;
-    // 设置按钮
-    NSString *userName = [BqAccountTools account].userName;
-//    [titleBtn setTitle:@"首页" forState:UIControlStateNormal];
-    [titleBtn setTitle:userName?userName:@"首页" forState:UIControlStateNormal];
-    [titleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    titleBtn.titleLabel.font = [UIFont systemFontOfSize:17];
-    //titleBtn.backgroundColor = [UIColor greenColor];
-    [titleBtn setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
-    [titleBtn setImage:[UIImage imageNamed:@"navigationbar_arrow_up"] forState:UIControlStateSelected];
-    [titleBtn sizeToFit];
-    
-    // 调整 titleBtn 子控件
-//    BqLog(@"titleBtn.titleLabel: %f", titleBtn.titleLabel.width);
-//    BqLog(@"titleBtn.imageView: %f", titleBtn.imageView.width);
-//    BqLog(@"titleBtn.titleLabel: %f", titleBtn.titleLabel.width);
-//    BqLog(@"titleBtn: %f", titleBtn.width);
-    CGFloat scaleFactor = [[UIScreen mainScreen] scale];
-    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0, titleBtn.titleLabel.width, 0, 0);
-    titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, - titleBtn.imageView.width * scaleFactor - 10, 0, 0);
-    //    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0);
-    //titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, titleBtn.imageView.width);
     // 绑定事件
     [titleBtn addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
+     // 设置按钮
+    NSString *userName = [BqAccountTools account].userName;
+    [titleBtn setTitle:userName?userName:@"首页" forState:UIControlStateNormal];
+    [titleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
+//    // 标题按钮
+//    UIButton *titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    // 设置为导航栏标题视图
+//    self.navigationItem.titleView = titleBtn;
+//    // 设置按钮
+//    NSString *userName = [BqAccountTools account].userName;
+//    //    [titleBtn setTitle:@"首页" forState:UIControlStateNormal];
+//    [titleBtn setTitle:userName?userName:@"首页" forState:UIControlStateNormal];
+//    [titleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    titleBtn.titleLabel.font = [UIFont systemFontOfSize:17];
+//    //titleBtn.backgroundColor = [UIColor greenColor];
+//    [titleBtn setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
+//    [titleBtn setImage:[UIImage imageNamed:@"navigationbar_arrow_up"] forState:UIControlStateSelected];
+//    [titleBtn sizeToFit];
+//    
+//    // 调整 titleBtn 子控件
+//    //    BqLog(@"titleBtn.titleLabel: %f", titleBtn.titleLabel.width);
+//    //    BqLog(@"titleBtn.imageView: %f", titleBtn.imageView.width);
+//    //    BqLog(@"titleBtn.titleLabel: %f", titleBtn.titleLabel.width);
+//    //    BqLog(@"titleBtn: %f", titleBtn.width);
+//    CGFloat scaleFactor = [[UIScreen mainScreen] scale];
+//    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0, titleBtn.titleLabel.width, 0, 0);
+//    titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, - titleBtn.imageView.width * scaleFactor - 10, 0, 0);
+//    //    titleBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 70, 0, 0);
+//    //titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, titleBtn.imageView.width);
+//    // 绑定事件
+//    [titleBtn addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
     
     
 }

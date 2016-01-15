@@ -48,6 +48,7 @@
 		E592C3AB1C48BBA70065A318 /* BqProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E592C3841C48BBA70065A318 /* BqProfileTableViewController.m */; };
 		E592C3AD1C48BBF20065A318 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = E592C3AC1C48BBF20065A318 /* README.md */; };
 		E592C3AF1C48D7A70065A318 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = E592C3AE1C48D7A70065A318 /* Foundation+Log.m */; };
+		E592C3B21C493C310065A318 /* BqTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E592C3B11C493C310065A318 /* BqTitleButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,8 @@
 		E592C3841C48BBA70065A318 /* BqProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BqProfileTableViewController.m; sourceTree = "<group>"; };
 		E592C3AC1C48BBF20065A318 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E592C3AE1C48D7A70065A318 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
+		E592C3B01C493C310065A318 /* BqTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BqTitleButton.h; sourceTree = "<group>"; };
+		E592C3B11C493C310065A318 /* BqTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BqTitleButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,6 +298,8 @@
 		E592C32D1C48BBA70065A318 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E592C3B01C493C310065A318 /* BqTitleButton.h */,
+				E592C3B11C493C310065A318 /* BqTitleButton.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -656,6 +661,7 @@
 				E592C3A41C48BBA70065A318 /* AFURLConnectionOperation.m in Sources */,
 				E592C3961C48BBA70065A318 /* BqNewFeatureController.m in Sources */,
 				E592C39A1C48BBA70065A318 /* UIBarButtonItem+Item.m in Sources */,
+				E592C3B21C493C310065A318 /* BqTitleButton.m in Sources */,
 				E592C39F1C48BBA70065A318 /* AFHTTPRequestOperation.m in Sources */,
 				E592C3AB1C48BBA70065A318 /* BqProfileTableViewController.m in Sources */,
 				E592C3AA1C48BBA70065A318 /* MBProgressHUD.m in Sources */,
