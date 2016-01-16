@@ -10,7 +10,7 @@
 
 @interface BqTitleButton : UIButton
 
-/// 快速获取带下拉菜单的标题按钮
+/// 快速获取标题按钮
 + (instancetype)titleButton;
 
 @end

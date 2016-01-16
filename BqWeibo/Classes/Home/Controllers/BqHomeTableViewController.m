@@ -42,6 +42,8 @@
     BqLog(@"BqHomeTableViewController-viewDidLoad");
 }
 
+
+
 /// 获取的用户信息（昵称）
 -  (void)setupUserInfo{
 //    URL: https://api.weibo.com/2/users/show.json
@@ -49,31 +51,28 @@
 //    HTTP请求方式: GET
 //    请求参数：access_token、uid
     
-    // 请求管理者
+    // 1. 请求管理者
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    // 拼接请求参数
+    // 2. 拼接请求参数
     // 获得账号
     BqAccount *account = [BqAccountTools account];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     params[@"access_token"] = account.access_token;
     params[@"uid"] = account.uid;
     
-    // 发送请求
+    // 3. 发送请求
     [manager GET:@"https://api.weibo.com/2/users/show.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        BqLog(@"request success - %@",responseObject);
         // 获取昵称
         NSString *userName = responseObject[@"name"];
-        // 如果昵称与沙盒中的不一样才修改标题
-        if ([userName isEqualToString:account.userName]) {
-            // 设置标题
-            UIButton *titleButton = (UIButton *)self.navigationItem.titleView;
-            [titleButton setTitle:userName forState:UIControlStateNormal];
-            [titleButton sizeToFit];
-            // 存入沙盒
-            account.userName = userName;
-            [BqAccountTools saveAccount:account];
-        }
+        // 更新标题
+        UIButton *titleButton = (UIButton *)self.navigationItem.titleView;
+        [titleButton setTitle:userName forState:UIControlStateNormal];
+        [titleButton sizeToFit];
+        // 存入沙盒
+        account.userName = userName;
+        [BqAccountTools saveAccount:account];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         BqLog(@"request fail - %@", error);
     }];
@@ -96,7 +95,7 @@
      // 设置按钮
     NSString *userName = [BqAccountTools account].userName;
     [titleBtn setTitle:userName?userName:@"首页" forState:UIControlStateNormal];
-    [titleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
     
 //    // 标题按钮
 //    UIButton *titleBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -125,8 +124,6 @@
 //    //titleBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, titleBtn.imageView.width);
 //    // 绑定事件
 //    [titleBtn addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
 }
 
 
@@ -143,9 +140,6 @@
     //vc.view.height = 150;
     [vc.view sizeToFit];
     vc.view.width = 100;
-    
-    //self.menuContentView = vc.view;
-    //menu.contentView = vc.view;
     menu.contentController = vc;
     
     // 显示下拉菜单

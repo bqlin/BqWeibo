@@ -29,12 +29,6 @@
 }
 
 
-// 若改变了标题，则重新调整尺寸
-- (void)setTitle:(NSString *)title forState:(UIControlState)state{
-    [super setTitle:title forState:state];
-//    [self sizeToFit];
-}
-
 /// 调整子控件
 - (void)layoutSubviews{
     [super layoutSubviews];
