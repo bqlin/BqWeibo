@@ -17,6 +17,8 @@
 
 #import "UIWindow+Extension.h"
 
+#import "SDWebImageManager.h"
+
 @interface AppDelegate ()
 
 @end
@@ -115,6 +117,18 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+/// 在内存警告时取消下载并清除缓存
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application{
+    // 获取 SDWebImageManager 的单例
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    
+    // 取消下载
+    [manager cancelAll];
+    
+    // 清除内存中的所有图片
+    [manager.imageCache clearMemory];
 }
 
 @end

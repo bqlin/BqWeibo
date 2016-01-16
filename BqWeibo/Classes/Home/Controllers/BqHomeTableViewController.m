@@ -17,12 +17,16 @@
 
 #import "BqTitleButton.h"
 
+#import "UIImageView+WebCache.h"
+
 
 
 // 遵守下拉菜单的代理协议
 @interface BqHomeTableViewController ()<BqDropdownMenuDelegate>
 
 //@property (nonatomic, strong) UIView *menuContentView;
+/// 微博数组，内容：字典，一个字典为一条微博
+@property (nonatomic, strong) NSArray *statuses;
 
 @end
 
@@ -37,12 +41,44 @@
     /// 获取的用户信息（昵称）
     [self setupUserInfo];
     
-    
+    /// 加载最新的微博数据
+    [self loadNewStatus];
     
     BqLog(@"BqHomeTableViewController-viewDidLoad");
 }
 
-
+ /// 加载最新的微博数据
+- (void)loadNewStatus{
+    // URL: https://api.weibo.com/2/statuses/home_timeline.json
+    // 请求方式：GET
+    // 请求参数：access_token
+    // 可选参数：
+    // count：返回的微博数量
+    
+    // 1. 请求管理者
+    AFHTTPRequestOperationManager *mananger = [AFHTTPRequestOperationManager manager];
+    
+    // 2. 拼接请求参数
+    BqAccount *account = [BqAccountTools account];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = account.access_token;
+//    params[@"count"] = @10;
+    
+    // 3. 发送请求
+    [mananger GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        BqLog(@"request success - %@",responseObject);
+        // 取得微博数组
+        self.statuses = responseObject[@"statuses"];
+//        BqLog(@"%@", self.statuses);
+        
+        // 刷新数组
+        [self.tableView reloadData];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        BqLog(@"request fail - %@", error);
+        
+    }];
+}
 
 /// 获取的用户信息（昵称）
 -  (void)setupUserInfo{
@@ -167,15 +203,39 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+// 各组有多少行
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.statuses.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+// 各行显示的内容
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *reuseID = @"status";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseID];
+    }
+    
+    // 设置内容
+    // 去除该行的微博字典
+    NSDictionary *statusDic = self.statuses[indexPath.row];
+    // 设置微博文字内容
+    cell.detailTextLabel.text = statusDic[@"text"];
+    
+    // 取出微博用户
+    NSDictionary *weiboUser = statusDic[@"user"];
+    // 用户昵称
+    cell.textLabel.text = weiboUser[@"name"];
+    
+    // 用户头像
+    NSString *profileImageURL = weiboUser[@"profile_image_url"];
+    // 占位图
+    UIImage *placehoder = [UIImage imageNamed:@"avatar_default_small"];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:profileImageURL] placeholderImage:placehoder];
+    
+    return cell;
 }
+
 
 #pragma mark - 系统方法
 - (void)didReceiveMemoryWarning {
