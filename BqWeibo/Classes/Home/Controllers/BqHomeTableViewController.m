@@ -19,6 +19,11 @@
 
 #import "UIImageView+WebCache.h"
 
+#import "MJExtension.h"
+
+#import "BqWeiboUser.h"
+#import "BqWeiboStatus.h"
+
 
 
 // 遵守下拉菜单的代理协议
@@ -26,7 +31,7 @@
 
 //@property (nonatomic, strong) UIView *menuContentView;
 /// 微博数组，内容：字典，一个字典为一条微博
-@property (nonatomic, strong) NSArray *statuses;
+@property (nonatomic, strong) NSMutableArray *statuses;
 
 @end
 
@@ -67,9 +72,10 @@
     // 3. 发送请求
     [mananger GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        BqLog(@"request success - %@",responseObject);
-        // 取得微博数组
-        self.statuses = responseObject[@"statuses"];
-//        BqLog(@"%@", self.statuses);
+        // 取得 微博字典 数组
+        NSArray *dicArray = responseObject[@"statuses"];
+        // 将 微博字典 数组 转为 微博模型 数组
+        self.statuses = [BqWeiboStatus mj_objectArrayWithKeyValuesArray:dicArray];
         
         // 刷新数组
         [self.tableView reloadData];
@@ -217,18 +223,22 @@
     }
     
     // 设置内容
-    // 去除该行的微博字典
-    NSDictionary *statusDic = self.statuses[indexPath.row];
+//    // 取出该行的微博字典
+//    NSDictionary *statusDic = self.statuses[indexPath.row];
+    // 优化：使用模型
+    BqWeiboStatus *status = self.statuses[indexPath.row];
     // 设置微博文字内容
-    cell.detailTextLabel.text = statusDic[@"text"];
+    cell.detailTextLabel.text = status.text;
     
     // 取出微博用户
-    NSDictionary *weiboUser = statusDic[@"user"];
+//    NSDictionary *weiboUser = statusDic[@"user"];
+    // 优化：使用模型
+    
     // 用户昵称
-    cell.textLabel.text = weiboUser[@"name"];
+    cell.textLabel.text = status.user.screen_name;
     
     // 用户头像
-    NSString *profileImageURL = weiboUser[@"profile_image_url"];
+    NSString *profileImageURL = status.user.profile_image_url;
     // 占位图
     UIImage *placehoder = [UIImage imageNamed:@"avatar_default_small"];
     [cell.imageView sd_setImageWithURL:[NSURL URLWithString:profileImageURL] placeholderImage:placehoder];
