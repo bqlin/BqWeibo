@@ -35,6 +35,7 @@
 		E546E21F1C4A9170003F1DCF /* NSObject+MJKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = E546E2131C4A9170003F1DCF /* NSObject+MJKeyValue.m */; };
 		E546E2201C4A9170003F1DCF /* NSObject+MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = E546E2151C4A9170003F1DCF /* NSObject+MJProperty.m */; };
 		E546E2211C4A9170003F1DCF /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E546E2171C4A9170003F1DCF /* NSString+MJExtension.m */; };
+		E55F038B1C4DCD5600A33490 /* BqLoadMoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E55F038A1C4DCD5600A33490 /* BqLoadMoreButton.m */; };
 		E592C2C91C48B8030065A318 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E592C2C81C48B8030065A318 /* main.m */; };
 		E592C2E31C48B8030065A318 /* BqWeiboTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E592C2E21C48B8030065A318 /* BqWeiboTests.m */; };
 		E592C3871C48BBA70065A318 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E592C31E1C48BBA70065A318 /* Assets.xcassets */; };
@@ -148,6 +149,8 @@
 		E546E2151C4A9170003F1DCF /* NSObject+MJProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJProperty.m"; sourceTree = "<group>"; };
 		E546E2161C4A9170003F1DCF /* NSString+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MJExtension.h"; sourceTree = "<group>"; };
 		E546E2171C4A9170003F1DCF /* NSString+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MJExtension.m"; sourceTree = "<group>"; };
+		E55F03891C4DCD5600A33490 /* BqLoadMoreButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BqLoadMoreButton.h; sourceTree = "<group>"; };
+		E55F038A1C4DCD5600A33490 /* BqLoadMoreButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BqLoadMoreButton.m; sourceTree = "<group>"; };
 		E592C2C31C48B8030065A318 /* BqWeibo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BqWeibo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E592C2C71C48B8030065A318 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E592C2C81C48B8030065A318 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -458,6 +461,8 @@
 			children = (
 				E592C3B01C493C310065A318 /* BqTitleButton.h */,
 				E592C3B11C493C310065A318 /* BqTitleButton.m */,
+				E55F03891C4DCD5600A33490 /* BqLoadMoreButton.h */,
+				E55F038A1C4DCD5600A33490 /* BqLoadMoreButton.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -832,6 +837,7 @@
 				E592C39B1C48BBA70065A318 /* UIColor+BqColor.m in Sources */,
 				E592C2C91C48B8030065A318 /* main.m in Sources */,
 				E592C3891C48BBA70065A318 /* BqHomeTableViewController.m in Sources */,
+				E55F038B1C4DCD5600A33490 /* BqLoadMoreButton.m in Sources */,
 				E546E1F01C4A3A9C003F1DCF /* SDWebImageManager.m in Sources */,
 				E546E2201C4A9170003F1DCF /* NSObject+MJProperty.m in Sources */,
 				E546E1F71C4A3A9C003F1DCF /* UIImageView+WebCache.m in Sources */,

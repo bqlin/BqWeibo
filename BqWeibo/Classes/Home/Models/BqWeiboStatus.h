@@ -19,4 +19,7 @@
 
 /// user：微博发送者
 @property (nonatomic, strong) BqWeiboUser *user;
+
+/// max_id：本次最旧微博的 ID
+@property (nonatomic, copy) NSString *max_id;
 @end

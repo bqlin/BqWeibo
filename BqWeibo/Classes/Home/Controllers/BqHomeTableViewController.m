@@ -16,6 +16,7 @@
 #import "BqAccountTools.h"
 
 #import "BqTitleButton.h"
+#import "BqLoadMoreButton.h"
 
 #import "UIImageView+WebCache.h"
 
@@ -26,8 +27,8 @@
 
 
 
-// 遵守下拉菜单的代理协议
-@interface BqHomeTableViewController ()<BqDropdownMenuDelegate>
+// 遵守下拉菜单的代理协议、载入更多代理协议
+@interface BqHomeTableViewController ()<BqDropdownMenuDelegate, BqLoadMoreButtonDelegate>
 
 //@property (nonatomic, strong) UIView *menuContentView;
 /// 微博数组，内容：字典，一个字典为一条微博
@@ -36,6 +37,7 @@
 @end
 
 @implementation BqHomeTableViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -49,7 +51,95 @@
     /// 加载最新的微博数据
     [self loadNewStatus];
     
+    /// 下拉刷新，使用系统自带
+    [self dropdownRefresh];
+    
+    /// 设置footerview
+    CGRect footerViewBound = CGRectMake(0, 0, 320, 44);
+    BqLoadMoreButton *loadMoreButton = [[BqLoadMoreButton alloc] initWithFrame:footerViewBound];
+    self.tableView.tableFooterView = loadMoreButton;
+    loadMoreButton.delegate = self;
+    
     BqLog(@"BqHomeTableViewController-viewDidLoad");
+}
+
+/// 下拉刷新，使用系统自带
+- (void)dropdownRefresh{
+    UIRefreshControl *control = [[UIRefreshControl alloc] init];
+    [self.tableView addSubview:control];
+    [control addTarget:self action:@selector(refreshNewStatus:) forControlEvents:UIControlEventValueChanged];
+    
+}
+
+
+/// 刷新更新微博（下拉）
+- (void)refreshNewStatus:(UIRefreshControl *)control{
+
+    // 请求获取最新的微博并添加到最前面
+    // 1. 请求管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // 2. 拼接请求参数
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = [BqAccountTools account].access_token;
+    BqWeiboStatus *currentStatus = [self.statuses firstObject];
+    // 若为空，则不加这个参数
+    if (currentStatus) {
+        params[@"since_id"] = currentStatus.idstr;
+    }
+    
+    // 3. 发送请求
+    [manager GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        // 3.1. 取得最新的微博模型数组
+        NSMutableArray *latestStatuses = [BqWeiboStatus mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+
+        // 3.2. 加到最前面
+        [latestStatuses addObjectsFromArray:self.statuses];
+        self.statuses = latestStatuses;
+        
+//        // 方法二
+//        NSRange range = NSMakeRange(0, latestStatuses.count);
+//        NSIndexSet *set = [NSIndexSet indexSetWithIndexesInRange:range];
+//        [self. statuses insertObjects:latestStatuses atIndexes:set];
+        // 3.3. 刷新数据
+        [self.tableView reloadData];
+        
+        // 3.4. 结束刷新
+        [control endRefreshing];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        BqLog(@"request fail - %@", error);
+        // 若加载失败也结束刷新
+        [control endRefreshing];
+    }];
+        BqLog(@"refreshNewStatus");
+}
+
+/// 载入更旧的微博
+- (void)loadEarlierStatuses{
+    // 在页尾加载更旧/早的微博
+    // 1. 请求管理者
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    // 2. 拼接请求
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    params[@"access_token"] = [BqAccountTools account].access_token;
+    BqWeiboStatus *currentStatus = [self.statuses lastObject];
+    // 若为空，则不加这个参数
+    if (currentStatus) {
+        params[@"max_id"] = @([currentStatus.idstr longLongValue] + 1);
+    }
+    
+    // 3. 发送请求
+    [manager GET:@"https://api.weibo.com/2/statuses/home_timeline.json" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *earlierStatues = [BqWeiboStatus mj_objectArrayWithKeyValuesArray:responseObject[@"statuses"]];
+        [self.statuses removeLastObject];
+        [self.statuses addObjectsFromArray:earlierStatues];
+        [self.tableView reloadData];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        BqLog(@"request fail - %@", error);
+    }];
+    BqLog(@"loadEarlierStatuses");
 }
 
  /// 加载最新的微博数据
@@ -202,6 +292,11 @@
 //    [titleBtn setImage:[UIImage imageNamed:@"navigationbar_arrow_down"] forState:UIControlStateNormal];
     titleBtn.selected = YES;
     BqLog(@"drop down menu show.");
+}
+
+/// 加载更多按钮
+- (void)loadMoreButtonDidClick:(BqLoadMoreButton *)loadMoreButton{
+    [self loadEarlierStatuses];
 }
 
 
