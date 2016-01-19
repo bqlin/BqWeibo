@@ -1,4 +1,4 @@
-//
+// 
 //  BqHomeTableViewController.m
 //  Bq 微博
 //
@@ -24,6 +24,9 @@
 
 #import "BqWeiboUser.h"
 #import "BqWeiboStatus.h"
+
+#import "BqWeiboStatusCell.h"
+#import "BqWeiboStatusFrame.h"
 
 
 
@@ -311,36 +314,46 @@
 
 // 各行显示的内容
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *reuseID = @"status";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseID];
-    }
+//    static NSString *reuseID = @"status";
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseID];
+//    if (!cell) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseID];
+//    }
+//    
+//    // 设置内容
+////    // 取出该行的微博字典
+////    NSDictionary *statusDic = self.statuses[indexPath.row];
+//    // 优化：使用模型
+//    BqWeiboStatus *status = self.statuses[indexPath.row];
+//    // 设置微博文字内容
+//    cell.detailTextLabel.text = status.text;
+//    
+//    // 取出微博用户
+////    NSDictionary *weiboUser = statusDic[@"user"];
+//    // 优化：使用模型
+//    
+//    // 用户昵称
+//    cell.textLabel.text = status.user.screen_name;
+//    
+//    // 用户头像
+//    NSString *profileImageURL = status.user.profile_image_url;
+//    // 占位图
+//    UIImage *placehoder = [UIImage imageNamed:@"avatar_default_small"];
+//    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:profileImageURL] placeholderImage:placehoder];
     
-    // 设置内容
-//    // 取出该行的微博字典
-//    NSDictionary *statusDic = self.statuses[indexPath.row];
-    // 优化：使用模型
-    BqWeiboStatus *status = self.statuses[indexPath.row];
-    // 设置微博文字内容
-    cell.detailTextLabel.text = status.text;
-    
-    // 取出微博用户
-//    NSDictionary *weiboUser = statusDic[@"user"];
-    // 优化：使用模型
-    
-    // 用户昵称
-    cell.textLabel.text = status.user.screen_name;
-    
-    // 用户头像
-    NSString *profileImageURL = status.user.profile_image_url;
-    // 占位图
-    UIImage *placehoder = [UIImage imageNamed:@"avatar_default_small"];
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:profileImageURL] placeholderImage:placehoder];
-    
+    BqWeiboStatusCell *cell = [BqWeiboStatusCell weiboStatusCellOnTableView:tableView];
+    BqWeiboStatusFrame *statusFrame = [[BqWeiboStatusFrame alloc] init];
+    statusFrame.status = self.statuses[indexPath.row];
+    cell.statusFrame = statusFrame;
     return cell;
 }
 
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    BqWeiboStatusFrame *statusFrame = [[BqWeiboStatusFrame alloc] init];
+    statusFrame.status = self.statuses[indexPath.row];
+//    BqLog(@"setting rowhieght");
+    return statusFrame.rowHeight;
+}
 
 #pragma mark - 系统方法
 - (void)didReceiveMemoryWarning {

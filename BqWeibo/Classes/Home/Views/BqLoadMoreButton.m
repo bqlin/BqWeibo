@@ -25,7 +25,8 @@
         NSString *titleNormal = @"点击加载更多" ;
         [self setTitle:titleNormal forState:UIControlStateNormal];
         [self setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        self.titleLabel.font = [UIFont systemFontOfSize:15];
+        self.titleLabel.font = [UIFont systemFontOfSize:14];
+
         
         // 选中状态
         NSString *titleSelected = @"拼命加载中";

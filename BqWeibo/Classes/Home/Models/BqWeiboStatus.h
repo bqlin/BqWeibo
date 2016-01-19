@@ -22,4 +22,10 @@
 
 /// max_id：本次最旧微博的 ID
 @property (nonatomic, copy) NSString *max_id;
+
+/// thumbnail_pic：微博内容缩略图地址
+@property (nonatomic, copy) NSString *thumbnail_pic;
+
+/// bmiddle_pic：微博配图中等尺寸
+@property (nonatomic, copy) NSString *bmiddle_pic;
 @end

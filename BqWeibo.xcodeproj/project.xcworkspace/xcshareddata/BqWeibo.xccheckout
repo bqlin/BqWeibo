@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A2CEBDEF-5656-44BB-92D2-FF0F0208C737</string>
+	<key>IDESourceControlProjectName</key>
+	<string>BqWeibo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>22D1E8E1540E9AF57A3EA3D632D122B8F035EC94</key>
+		<string>github.com:bqlin/BqWeibo.git</string>
+		<key>23E61135550BA2F5A30188A33544D80E82E9C4D1</key>
+		<string>github.com:bqlin/Gadgets-Alliance.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>BqWeibo.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>22D1E8E1540E9AF57A3EA3D632D122B8F035EC94</key>
+		<string>../..</string>
+		<key>23E61135550BA2F5A30188A33544D80E82E9C4D1</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:bqlin/BqWeibo.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>22D1E8E1540E9AF57A3EA3D632D122B8F035EC94</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>23E61135550BA2F5A30188A33544D80E82E9C4D1</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>22D1E8E1540E9AF57A3EA3D632D122B8F035EC94</string>
+			<key>IDESourceControlWCCName</key>
+			<string>BqWeibo</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -4,7 +4,7 @@
 //
 //  Created by LinBq on 16/1/19.
 //  Copyright (c) 2016年 LinBq. All rights reserved.
-//
+//  加载更多 按钮
 
 #import <UIKit/UIKit.h>
 

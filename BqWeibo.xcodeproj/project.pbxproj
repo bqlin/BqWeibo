@@ -36,6 +36,8 @@
 		E546E2201C4A9170003F1DCF /* NSObject+MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = E546E2151C4A9170003F1DCF /* NSObject+MJProperty.m */; };
 		E546E2211C4A9170003F1DCF /* NSString+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E546E2171C4A9170003F1DCF /* NSString+MJExtension.m */; };
 		E55F038B1C4DCD5600A33490 /* BqLoadMoreButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E55F038A1C4DCD5600A33490 /* BqLoadMoreButton.m */; };
+		E55F038E1C4DF02000A33490 /* BqWeiboStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E55F038D1C4DF02000A33490 /* BqWeiboStatusCell.m */; };
+		E55F03911C4DF1B500A33490 /* BqWeiboStatusFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = E55F03901C4DF1B500A33490 /* BqWeiboStatusFrame.m */; };
 		E592C2C91C48B8030065A318 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E592C2C81C48B8030065A318 /* main.m */; };
 		E592C2E31C48B8030065A318 /* BqWeiboTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E592C2E21C48B8030065A318 /* BqWeiboTests.m */; };
 		E592C3871C48BBA70065A318 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E592C31E1C48BBA70065A318 /* Assets.xcassets */; };
@@ -151,6 +153,10 @@
 		E546E2171C4A9170003F1DCF /* NSString+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MJExtension.m"; sourceTree = "<group>"; };
 		E55F03891C4DCD5600A33490 /* BqLoadMoreButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BqLoadMoreButton.h; sourceTree = "<group>"; };
 		E55F038A1C4DCD5600A33490 /* BqLoadMoreButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BqLoadMoreButton.m; sourceTree = "<group>"; };
+		E55F038C1C4DF02000A33490 /* BqWeiboStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BqWeiboStatusCell.h; sourceTree = "<group>"; };
+		E55F038D1C4DF02000A33490 /* BqWeiboStatusCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BqWeiboStatusCell.m; sourceTree = "<group>"; };
+		E55F038F1C4DF1B500A33490 /* BqWeiboStatusFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BqWeiboStatusFrame.h; sourceTree = "<group>"; };
+		E55F03901C4DF1B500A33490 /* BqWeiboStatusFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BqWeiboStatusFrame.m; sourceTree = "<group>"; };
 		E592C2C31C48B8030065A318 /* BqWeibo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BqWeibo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E592C2C71C48B8030065A318 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E592C2C81C48B8030065A318 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -452,6 +458,8 @@
 				E546E1FD1C4A535A003F1DCF /* BqWeiboUser.m */,
 				E546E1FF1C4A5378003F1DCF /* BqWeiboStatus.h */,
 				E546E2001C4A5378003F1DCF /* BqWeiboStatus.m */,
+				E55F038F1C4DF1B500A33490 /* BqWeiboStatusFrame.h */,
+				E55F03901C4DF1B500A33490 /* BqWeiboStatusFrame.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -463,6 +471,8 @@
 				E592C3B11C493C310065A318 /* BqTitleButton.m */,
 				E55F03891C4DCD5600A33490 /* BqLoadMoreButton.h */,
 				E55F038A1C4DCD5600A33490 /* BqLoadMoreButton.m */,
+				E55F038C1C4DF02000A33490 /* BqWeiboStatusCell.h */,
+				E55F038D1C4DF02000A33490 /* BqWeiboStatusCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -826,6 +836,7 @@
 				E546E2191C4A9170003F1DCF /* MJFoundation.m in Sources */,
 				E546E1F61C4A3A9C003F1DCF /* UIImageView+HighlightedWebCache.m in Sources */,
 				E592C3A41C48BBA70065A318 /* AFURLConnectionOperation.m in Sources */,
+				E55F03911C4DF1B500A33490 /* BqWeiboStatusFrame.m in Sources */,
 				E592C3961C48BBA70065A318 /* BqNewFeatureController.m in Sources */,
 				E592C39A1C48BBA70065A318 /* UIBarButtonItem+Item.m in Sources */,
 				E592C3B21C493C310065A318 /* BqTitleButton.m in Sources */,
@@ -871,6 +882,7 @@
 				E592C3A51C48BBA70065A318 /* AFURLRequestSerialization.m in Sources */,
 				E592C38C1C48BBA70065A318 /* BqNavigationController.m in Sources */,
 				E546E2011C4A5378003F1DCF /* BqWeiboStatus.m in Sources */,
+				E55F038E1C4DF02000A33490 /* BqWeiboStatusCell.m in Sources */,
 				E592C3931C48BBA70065A318 /* BqSearchBar.m in Sources */,
 				E546E21C1C4A9170003F1DCF /* MJPropertyType.m in Sources */,
 				E546E1F21C4A3A9C003F1DCF /* UIButton+WebCache.m in Sources */,
